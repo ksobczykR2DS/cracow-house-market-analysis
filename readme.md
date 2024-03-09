@@ -5,7 +5,9 @@ Projekt w ramach zajęć **Eksploracja Danych** realizowany w semestrze letnim r
 
 ### Autorzy
 Katarzyna Dębowska
+
 Kacper Sobczyk
+
 Piotr Urbańczyk
 
     
@@ -20,9 +22,12 @@ Projekt ma na celu zrozumienie zależności między cechami mieszkań a ich cena
 
 ### Spis treści
 1. [Zrozumienie danych](#zrozumienie-danych)
+
 	1.1. [Gromadzenie danych](#gromadzenie-danych)
+
 	1.2. [Opis danych](#opis-danych)
-	1.3. Weryfikacja jakości danych
+
+	1.3. [Weryfikacja jakości danych](#weryfikacja-jakości-danych)
 2. [Przygotowanie danych](#czynności-wstępne)
 
 
@@ -32,7 +37,7 @@ Projekt ma na celu zrozumienie zależności między cechami mieszkań a ich cena
 W projekcie wykorzystano zbiór danych zawierający informacje o ofertach sprzedaży mieszkań w Krakowie.
 ### Gromadzenie danych
 #### Źródło danych
-Dane zostały pozyskane za pomocą metod automatycznych ze źródeł w swobodnym dostępie -- dwóch popularnych portali zawierających oferty sprzedaży nieruchomości: nieruchomości-online.pl oraz otodom.pl.
+Dane zostały pozyskane za pomocą metod automatycznych ze źródeł w swobodnym dostępie -- dwóch popularnych portali zawierających oferty sprzedaży nieruchomości: [nieruchomości-online.pl](nieruchomości-online.pl) oraz [otodom.pl](otodom.pl).
 
 #### Metody pozyskania danych
 Oba zbiory danych zostały pozyskane przy użyciu profesjonalnego rozwiązania do scrapingu treści z sieci Internet (pisanego w języku `Scala` a w przypadku crawli o charakterze dynamicznym wykorzystującego platformę `Selenium`).
@@ -183,11 +188,12 @@ memory usage: 1.0+ MB
 
 - Ponieważ serwis orodom.pl umożliwiał zebranie większej liczby informacji o oferowanych nieruchomościach, dane pochodzące z tego serwisu zawierają więcej cech (kolumn).
 - Informacja o piętrze, na którym znajduje się nieruchomość, w zbiorze `nieruchomosci-online_dataset_raw.csv` zawarta jest w dwóch kolumnach *floor/store* oraz *no of floors/stores in the building*. Ta sama informacja w zbiorze `otodom_dataset_raw.csv` zawarta jest w jednej kolumnie -- *floor/store* i przybiera postać postać [piętro]/[liczba pięter], np. "1/5". W przypadku potrzeby wspólnej analizy obu zbiorów, dane powinny zostać ujednolicone.
-- Większość danych zawartych w obu zbiorach to dane tekstowe, wymagające konwersji w celu dalszych analiz.
-- Zbiór `nieruchomosci-online_dataset_raw.csv` zawiera pewną liczbę niepoprawnych wierszy wynikających z nietypowego ustawienia selektorów na stronie zawierającej ogłoszenie o sprzedaży. Dotyczy to zwłaszcza nieruchomości z rynku pierwotnego. Dane w tych wiersze te będą musiały zostać odtworzone lub usunięte.
-- Z uwagi na charakter runku (działania pośredników i agencji) oraz stron zawierających oferty sprzedaży nieruchomości,  oba zbiory zawierają potencjalnie wiele wierszy dotyczących tego samego mieszkania (potencjalne "duplikaty").
-- Z uwagi na charakter runku (ukrywanie dokładnego adresu nieruchomości przez pośredników i agencje), informacje o położeniu nieruchomości są najczęściej niezbyt dokładne. Ta niedokładność nie będzie raczej uniemożliwiała potencjalne analizy lub modelowanie z komponentem przestrzennym/geograficznym.
-- Z podobnego powodu zbiory mogą zawierać nieruchomości położone poza Krakowem (mieszkania ze Skawiny czy Wieliczki są często umieszczane w tych serwisach jako mieszkania z obrzeży Krakowa).
+- Z uwagi na pochodzenie danych, większość kulumn w obu zbiorach zawiera dane tekstowe, wymagające konwersji w celu dalszych analiz.
+- Z uwagi na sposób pozyskania danych, zbiór `nieruchomosci-online_dataset_raw.csv` zawiera pewną liczbę niepoprawnych wierszy wynikających z nietypowego ustawienia selektorów na stronie zawierającej ogłoszenie o sprzedaży. Dotyczy to zwłaszcza nieruchomości z rynku pierwotnego. Dane w tych wierszach będą musiały zostać odtworzone lub usunięte.
+- W niewielkiej liczbie przypadków dane o nieruchomościach z rynku pierwotnego nie zawierają ceny (wybrano opcję "Zapytaj o ofertę").
+- Z uwagi na charakter rynku (działania pośredników i agencji) oraz stron zawierających oferty sprzedaży nieruchomości, oba zbiory zawierają potencjalnie wiele wierszy dotyczących tego samego mieszkania (potencjalne "duplikaty" ofert pochodzące od różnych pośredników).
+- Z uwagi na charakter rynku (ukrywanie dokładnego adresu nieruchomości przez pośredników i agencje), informacje o położeniu nieruchomości są najczęściej niezbyt dokładne. Ta niedokładność nie będzie raczej uniemożliwiała potencjalne analizy lub modelowanie z komponentem przestrzennym/geograficznym.
+- Z podobnego powodu zbiory mogą zawierać nieruchomości położone poza Krakowem (mieszkania ze Skawiny czy Wieliczki są często umieszczane w tych serwisach jako mieszkania z Krakowa/obrzeży Krakowa).
 
 
 ## Przygotowanie danych
