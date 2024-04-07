@@ -1,4 +1,4 @@
-,name/title,address,price,area,price-per-area,floor/store,no of floors/stores in the building,no of rooms,year of construction,parking space,market,form of ownership
+url,name/title,address,price,area,price-per-area,floor/store,no of floors/stores in the building,no of rooms,year of construction,parking space,market,form of ownership
 "https://krakow.nieruchomosci-online.pl/mieszkanie,z-aneksem-kuchennym/24779595.html","Mieszkanie, ul. Żelechowskiego","Żelechowskiego, Bronowice, Kraków, małopolskie",889 000 zł,"51,70 m²","17 195,36 zł/m²",1,3.0,2,1980,tak,wtórny,własność
 "https://krakow.nieruchomosci-online.pl/mieszkanie,m3,z-oddzielna-kuchnia/24745285.html",Mieszkanie,"Felińskiego, Górka Narodowa, Kraków, małopolskie",899 000 zł,"74,17 m²","12 120,80 zł/m²",2,5.0,3,2003,parking publiczny / na ulicy,wtórny,
 "https://krakow.nieruchomosci-online.pl/mieszkanie,m3,z-aneksem-kuchennym/24715229.html","Apartament, ul. Lublańska","Lublańska 13, Prądnik Czerwony, Kraków, małopolskie",1 065 000 zł,60 m²,17 750 zł/m²,3,4.0,3,2023,w garażu podziemnym,wtórny,"własność, księga wieczysta"
