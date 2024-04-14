@@ -191,6 +191,7 @@ memory usage: 1.0+ MB
 - Z uwagi na pochodzenie danych, większość kulumn w obu zbiorach zawiera dane tekstowe, wymagające konwersji w celu dalszych analiz.
 - Z uwagi na sposób pozyskania danych, zbiór `nieruchomosci-online_dataset_raw.csv` zawiera pewną liczbę niepoprawnych wierszy wynikających z nietypowego ustawienia selektorów na stronie zawierającej ogłoszenie o sprzedaży. Dotyczy to zwłaszcza nieruchomości z rynku pierwotnego. Dane w tych wierszach będą musiały zostać odtworzone lub usunięte.
 - W niewielkiej liczbie przypadków dane o nieruchomościach z rynku pierwotnego nie zawierają ceny (wybrano opcję "Zapytaj o ofertę").
+- W niewielkiej liczbie przypadków cena w ofercie podana jest w innej walucie​ (euro).
 - Z uwagi na charakter rynku (działania pośredników i agencji) oraz stron zawierających oferty sprzedaży nieruchomości, oba zbiory zawierają potencjalnie wiele wierszy dotyczących tego samego mieszkania (potencjalne "duplikaty" ofert pochodzące od różnych pośredników).
 - Z uwagi na charakter rynku (ukrywanie dokładnego adresu nieruchomości przez pośredników i agencje), informacje o położeniu nieruchomości są najczęściej niezbyt dokładne. Ta niedokładność nie będzie raczej uniemożliwiała potencjalne analizy lub modelowanie z komponentem przestrzennym/geograficznym.
 - Z podobnego powodu zbiory mogą zawierać nieruchomości położone poza Krakowem (mieszkania ze Skawiny czy Wieliczki są często umieszczane w tych serwisach jako mieszkania z Krakowa/obrzeży Krakowa).
