@@ -200,6 +200,7 @@ memory usage: 1.0+ MB
 ## Przygotowanie danych
 Usuwanie brakujących lub błędnych wartości, ujednolicenie danych, konwersja formatów, dodanie danych geograficznych itp. -- do ew. uzupełnienia w trakcie prac.
 
+Na kolumnie xxxx wykonaliśmy taką a taką operację.
 
 
 ...
@@ -213,4 +214,5 @@ Acta Scientiarum Polonorum. Administratio Locorum (2010) 9/3, 5-14
 <a id="2">[2]</a> M. Frukacz, M. Popieluch, E. Preweda,
 Korekta cen nieruchomości ze względu na upływ czasu w przypadku dużych baz danych.
 Infrastruktura i ekologia terenów wiejskich (2011) 4, 213-226
+
 
