@@ -4,3 +4,5 @@ jupyter
 matplotlib
 seaborn
 streamlit
+yfinance
+openpyxl
