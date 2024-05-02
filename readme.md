@@ -27,8 +27,34 @@ Projekt ma na celu zrozumienie zależności między cechami mieszkań a ich cena
 
 	1.2. [Opis danych](#opis-danych)
 
-	1.3. [Weryfikacja jakości danych](#weryfikacja-jakości-danych)
-2. [Przygotowanie danych](#czynności-wstępne)
+	1.3. [Wstępna ocena jakości danych](#wstępna-ocena-jakości-danych)
+2. [Przygotowanie danych](#przygotowanie-danych)
+
+	2.1. [Operacje na kolumnach](#operacje-na-kolumnach)
+
+	2.2. [Przykłady zastosowania wiedzy eksperckiej](#przykłady-zastosowania-wiedzy-eksperckiej)
+
+	2.3. [Weryfikacja jakości danych](#weryfikacja-jakości-danych)
+
+	2.4. [Inżynieria danych](#inżynieria-danych)
+
+	2.5. [Eksploracja danych](#inżynieria-danych)
+3. [Analiza danych](#czynności-wstępne)
+
+	3.1. [Analiza komponentów bazowych (PCA)](#gromadzenie-danych)
+
+	3.2. [Macierz korelacji (macierz Pearsona)](#opis-danych)
+
+	3.3. [Wybór danych](#weryfikacja-jakości-danych)
+4. [Modelowanie](#czynności-wstępne)
+
+	4.1. [SearchGrid](#gromadzenie-danych)
+
+	4.2. [Wybór najlepszego predyktora](#opis-danych)
+
+	4.3. [Ewaluacja wyników modelu](#weryfikacja-jakości-danych)
+5. [Wizualizacja danych w komponencie przestrzennym](#wizualizacja-danych-w-komponencie-przestrzennym)
+6. [Podsumowanie i wnioski](#czynności-wstępne)
 
 
 
@@ -37,10 +63,13 @@ Projekt ma na celu zrozumienie zależności między cechami mieszkań a ich cena
 W projekcie wykorzystano zbiór danych zawierający informacje o ofertach sprzedaży mieszkań w Krakowie.
 ### Gromadzenie danych
 #### Źródło danych
-Dane zostały pozyskane za pomocą metod automatycznych ze źródeł w swobodnym dostępie -- dwóch popularnych portali zawierających oferty sprzedaży nieruchomości: [nieruchomości-online.pl](nieruchomości-online.pl) oraz [otodom.pl](otodom.pl).
+Dane zostały pozyskane za pomocą metod automatycznych ze źródeł w swobodnym dostępie -- dwóch popularnych portali
+zawierających oferty sprzedaży nieruchomości: [nieruchomości-online.pl](nieruchomości-online.pl)
+oraz [otodom.pl](otodom.pl).
 
 #### Metody pozyskania danych
-Oba zbiory danych zostały pozyskane przy użyciu profesjonalnego rozwiązania do scrapingu treści z sieci Internet (pisanego w języku `Scala` a w przypadku crawli o charakterze dynamicznym wykorzystującego platformę `Selenium`).
+Oba zbiory danych zostały pozyskane przy użyciu profesjonalnego dedykowanego rozwiązania do scrapingu treści z sieci
+Internet (pisanego w języku `Scala` a w przypadku crawli o charakterze dynamicznym wykorzystującego platformę `Selenium`).
 
 Przykładowy fragment pliku konfiguracyjnego:
 ```json
@@ -83,15 +112,24 @@ Dane zostały następnie przekonwertowane do formatu `csv` (za pomocą prostego 
 
 ### Opis danych
 
-Dane zostały zebrane w dwóch plikach w formacie csv.
-##### nieruchomosci-online_dataset_raw.csv
-Plik `nieruchomosci-online_dataset_raw.csv` zawiera 3949 wierszy (bez nagłówka)  oraz 13 kolumn. 
+Dane zostały zebrane pięciokrotnie w okresie od 08.03.2024 do 05.05.2024 z interwałem dwutygotniowym
+dla obu źródeł danych (nieruchomości-online.pl, otodom.pl) osobno. 
+
+##### nieruchomosci-online dataset
+Pliki otrzymane ze źródła nieuchomości-online.pl zawierają 13 kolumn: `'url', 'name/title', 'address', 'price', 'area', 'price-per-area',
+       'floor/store', 'no of floors/stores in the building', 'no of rooms',
+       'year of construction', 'parking space', 'market', 'form of ownership'`.
+
+- Plik `2024-03-08-nieruchomosci-online_dataset_raw.csv` zawiera 3949 wierszy (bez nagłówka). 
+- Plik `2024-03-25-nieruchomosci-online-full_raw_dataset.csv` zawiera 3348 wierszy (bez nagłówka). 
+- Plik `2024-04-07-nieruchomosci-online_full_raw_dataset.csv` zawiera 4141 wierszy (bez nagłówka). 
+- Plik `2024-04-21-nieruchomosci-online_full_raw_dataset.csv` zawiera 6185 wierszy (bez nagłówka). 
+- Plik `2024-05-05-nieruchomosci-online_full_raw_dataset.csv` zawiera xxxx wierszy (bez nagłówka).
 
 ```python
->>> nieruchomosci-online_dataset_raw.size
-51337
+>>> 2024-03-08-nieruchomosci-online_dataset_raw.csv.size
+3949
 ```
-
 ```python
 >>> nieruchomosci-online_dataset_raw.info
 RangeIndex: 3949 entries, 0 to 3948
@@ -130,9 +168,19 @@ memory usage: 401.2+ KB
 9  https://krakow.nieruchomosci-online.pl/mieszka...   Apartament, ul. Szablowskiego  ...                                             wtórny  własność, księga wieczysta
 ```
 
-##### otodom_dataset_raw.csv
+##### otodom_dataset
 
-Plik `otodom_dataset_raw.csv` zawiera 6819 wierszy (bez nagłówka) oraz 20 kolumn.
+Pliki otrzymane ze źródła otodom.pl zawierają 20 kolumn: `'url', 'name/title', 'address', 'price', 'area', 'price-per-area',
+       'floor/store', 'no of rooms', 'year of construction', 'parking space',
+       'market', 'form of ownership', 'condition', 'rent', 'heating',
+       'advertiser type', 'elevator', 'outdoor area', 'building type',
+       'building material'`
+
+- Plik `2024-03-08-otodom_dataset_raw.csv` zawiera 6819 wierszy (bez nagłówka).
+- Plik `2024-03-25-otodom-full_raw_dataset.csv` zawiera 7130 wierszy (bez nagłówka).
+- Plik `2024-04-07-otodom_full_raw_dataset.csv` zawiera 7148 wierszy (bez nagłówka).
+- Plik `2024-04-21-otodom_full_raw_dataset.csv` zawiera 7436 wierszy (bez nagłówka).
+- Plik `2024-05-05-otodom-full_raw_dataset.csv` zawiera xxx wierszy (bez nagłówka).
 
 ```python
 >>> otodom_dataset_raw.size
@@ -184,23 +232,236 @@ memory usage: 1.0+ MB
 9  https://www.otodom.pl/pl/oferta/3-pokoje-z-ust...    3 pokoje z ustawnym salonem | Dobra komunikacja  ...             blok   brak informacji
 ```
 
-### Weryfikacja jakości danych
+### Wstępna ocena jakości danych
 
 - Ponieważ serwis orodom.pl umożliwiał zebranie większej liczby informacji o oferowanych nieruchomościach, dane pochodzące z tego serwisu zawierają więcej cech (kolumn).
 - Informacja o piętrze, na którym znajduje się nieruchomość, w zbiorze `nieruchomosci-online_dataset_raw.csv` zawarta jest w dwóch kolumnach *floor/store* oraz *no of floors/stores in the building*. Ta sama informacja w zbiorze `otodom_dataset_raw.csv` zawarta jest w jednej kolumnie -- *floor/store* i przybiera postać postać [piętro]/[liczba pięter], np. "1/5". W przypadku potrzeby wspólnej analizy obu zbiorów, dane powinny zostać ujednolicone.
 - Z uwagi na pochodzenie danych, większość kulumn w obu zbiorach zawiera dane tekstowe, wymagające konwersji w celu dalszych analiz.
 - Z uwagi na sposób pozyskania danych, zbiór `nieruchomosci-online_dataset_raw.csv` zawiera pewną liczbę niepoprawnych wierszy wynikających z nietypowego ustawienia selektorów na stronie zawierającej ogłoszenie o sprzedaży. Dotyczy to zwłaszcza nieruchomości z rynku pierwotnego. Dane w tych wierszach będą musiały zostać odtworzone lub usunięte.
 - W niewielkiej liczbie przypadków dane o nieruchomościach z rynku pierwotnego nie zawierają ceny (wybrano opcję "Zapytaj o ofertę").
-- W niewielkiej liczbie przypadków cena w ofercie podana jest w innej walucie​ (euro).
+- W niewielkiej liczbie przypadków cena w ofercie podana jest w innej walucie (euro).
 - Z uwagi na charakter rynku (działania pośredników i agencji) oraz stron zawierających oferty sprzedaży nieruchomości, oba zbiory zawierają potencjalnie wiele wierszy dotyczących tego samego mieszkania (potencjalne "duplikaty" ofert pochodzące od różnych pośredników).
 - Z uwagi na charakter rynku (ukrywanie dokładnego adresu nieruchomości przez pośredników i agencje), informacje o położeniu nieruchomości są najczęściej niezbyt dokładne. Ta niedokładność nie będzie raczej uniemożliwiała potencjalne analizy lub modelowanie z komponentem przestrzennym/geograficznym.
 - Z podobnego powodu zbiory mogą zawierać nieruchomości położone poza Krakowem (mieszkania ze Skawiny czy Wieliczki są często umieszczane w tych serwisach jako mieszkania z Krakowa/obrzeży Krakowa).
 
 
 ## Przygotowanie danych
-Usuwanie brakujących lub błędnych wartości, ujednolicenie danych, konwersja formatów, dodanie danych geograficznych itp. -- do ew. uzupełnienia w trakcie prac.
+W początkowej fazie projektu skoncentrowaliśmy się na oczyszczaniu i przygotowaniu zgromadzonych danych.
+Usunęliśmy brakujące i błędne wartości, ujednoliciliśmy formaty danych, przekonwertowaliśmy typy danych
+oraz uzupełniliśmy wartości tam,
+gdzie było to niezbędne. W końcu, dodaliśmy dane geograficzne, które pozwoliły na analizę i modelowanie danych
+o nieruchomościach w komponencie geograficznym.
 
-Na kolumnie xxxx wykonaliśmy taką a taką operację.
+W celu modelowania i analiz w komponencie przestrzennym
+dane zebrane w różnych terminach zostały zageregowane w obrębie jednego zbioru (dla obu źródeł).
+Dane zmienione zostały zaktualizowanea a dane pochodzące z nowych ofert były dołączane do zbioru.
+
+### Operacje na kolumnach
+
+#### Cena
+W obu zbiorach przeprowadzono podobne operacje.
+Usunięto brakujące dane ("Zapytaj o cenę") oraz wartości niestandardowe, takie jak ceny
+w innych walutach. Wartości zostały przekonwertowane na zmiennopozycyjny typ liczbowy.
+Również przeliczono ceny podane w innych walutach na złotówki – w przypadku zbioru otodom za pomocą iloczynu
+podanej w złotówkach wartości `price-per-area` i `area`, a w przypadku zbioru nieruchomosci-online
+korzystając z aktualnych kursów wymiany (aktualna średnia w 50-ciodniowym oknie ruchomym z bibiloteki `yfinance`).
+
+#### Powierzchnia, cena za metr
+ Zamiana wartości z formatu tekstowego na numeryczny, usunięcie jednostek ("m²", "zł/m²").
+
+####  Piętro, liczba pięter w budynku
+W przypadku zbioru otodom: rozdzielono informacje o piętrze i liczbie pięter w budynku w celu uspójnienia zbiorów.
+W obu zbiorach:
+konwersja na typy całkowitoliczbowe, zamiana tekstowych opisów pięter na wartości liczbowe
+("parter" na 0, "suterena" na -1).
+
+#### Liczba pokoi,
+Standaryzacja danych o liczbie pokoi, konwersja na typ całowitoliczbowy. W zbiorze nieruchoności-online usunięto wiersze
+z brakującymi danymi wynikającymi z przesunięcia selektorów na niektórych stronach z ofertami z rynku pierwotnego
+(co spowodowało niepoprawny scrapping).
+
+#### Rok budowy
+W obu zbiorach podobne kroki weryfikacji i czyszczenia danych: konwersja roku budowy na typ całowitoliczbowy;
+w przypadku oczywistych pomyłek ("literówek"):
+zmiana nierealistycznych wartości (lata
+bardzo odległe w czasie) wynikających z niepoprawnego ręcznego wprowadzenia danych o nieruchomości w ofercie
+(czynnik ludzki), w pozostałych przypadkach usunięcie takich danych.
+
+
+#### Miejsce parkingowe
+W przypadku zbioru otodom: konwersja danych katergorialnych ("tak"/"nie") na wartość boolowską. W przypadku zbioru
+nieruchomości-online dane kategoryczne były silniej rozgranulowane (np. "przynależne miejsce parkingowe",
+"garaż podziemny", "brak" itp.). Kolumna ta została jednczocześnie: 1) znormalizowana i
+skopiowana do nowej (parking space details) by nie utracić głębokości danych przy oddzielnym analizowaniu zbioru oraz 2)
+przekonwertowana na typ boolowski w celu dalszego uspójnienia zbiorów.
+
+#### Rynek
+W obu zbiorach: zunifikowano wartości w kolumnie 'market' przez zamianę zróżnicowanych opisów na standardowe etykiety
+('pierwotny', 'wtórny'). Uzupełnienie brakujących danych na podstawie roku budowy – obiekty
+z rokiem budowy powyżej 2022 zostały automatycznie zaklasyfikowane jako 'pierwotny', pozostałe jako 'wtórny'.
+
+#### Forma własności
+W kolumnie 'form of ownership' przeprowadzono mapowanie różnych form własności do bardziej jednolitych kategorii.
+Uzupełniono również brakujące wartości na podstawie roku budowy (patrz niżej).
+
+#### Dodatkowe kolumny w zbiorze Otodom
+- **czynsz**: Przekonwertowano wartości czynszu na typ liczbowy, przeliczono wartości w innych walutach na podstawie
+średnich wartości aktualnych kursów wymiany (średnia w 50-ciodniowym oknie ruchomym).
+- **ogrzewanie, typ ogłoszeniodawcy, winda, przestrzeń zewnętrzna, typ budynku, materiał budowlany**:
+Ujednolicenie kategorii, konwersja na typy liczbowe lub boolowskie tam, gdzie to było zasadne i możliwe,
+usunięcie niestandardowych wpisów.
+
+
+
+### Przykłady zastosowania wiedzy eksperckiej
+
+#### Uzgodnienie liczby pięter z najwyższymi budynkami w Krakowie
+Przefiltrowano dane eliminując nieruchomości, które podają większą liczbę pięter niż najwyższe mieszkalne budynki
+w Krakowie, usuwając w ten sposób oferty nieruchomości pochodzących zza granicy.
+
+#### Dostosowanie formy własności do obowiązującego prawa
+
+Obowiązujące od 2007 roku prawo budowlane wykluczyło możliwość ustanawiania
+spółdzielczego własnościowego prawa do lokalu dla budynków zbudowanych.
+Dane z ofert mieszkań wybudowanych po tym terminie zostały uzupełnione o domyślną formę własności 'pełna własność'.
+
+#### Prawny wymóg instalacji windy w wysokich budynkach
+
+Zgodnie z prawem budowlanym obwiązującym od lat 60. winda jest obowiązkowo montowana w budynkach powyżej 9,5m,
+co z kolei związane jest jest (per minimalna wysokośćkondygnacji) z określną liczbą pięter. W konsekwencji, brakujące
+dane dotyczące (nie)obecności windy zostały uzupełnione dla budynków powyżej (i poniżej) 4 pięter.
+
+#### Klasyfikacja typu ogłoszeniodawcy
+
+Założono, że jeśli typ ogłoszeniodawcy nie jest podany, domyślnie jest to biuro nieruchomości. Założonie to
+jest motywowane dwojako: 1) Osoby prywatne zazwyczaj
+chętnie podają tę informację w ofertach; 2) Z drugiej strony "biuro nieruchomości" to także najczęściej występując
+kategori w tej kolumnie. W konsekwncji, przypisano odpowiednią domyślną wartość dla brakujących danych.
+
+
+
+#### Eksploracja danych
+- **Analizy statystyczne**: Wykonaliśmy podstawowe analizy statystyczne, w tym obliczenie średnich, median, a także przeprowadzenie analizy rozkładów wartości w kluczowych kolumnach, co pomogło nam zrozumieć charakterystyki cenowe i lokalizacyjne rynku.
+
+### Inżynieria danych
+
+#### Integracja danych i usuwanie duplikatów
+Odpowiednie przygotowanie danych umożliwiło połączone ich w jeden zbiór.
+Dane zostały następnie poddane inżynierii.
+Pierwszy etap polegał na usunięciu duplikatów.
+
+Etap ten był konieczny z dwóch powodów: 1) Po pierwsze usupójniony zbiór siłą rzeczy mógł
+zawierać informacje o tym samym mieszkaniu pochodzącą z dwóch różnych źródeł. 2) Po drugie,
+zgodnie naszą wstępną oceną jakości danych, nawet w obrębie jednego źródła można było odnaleźć
+ogłoszenia dot. tego samego mieszkania wprowadzone przez różnych pośredników nieruchomości.
+
+Takie "duplikaty" staraliśmy się zindentyfikować używając unikalnych identyfikatorów
+nieruchomości (iloczyn kartezjański cech: adres, liczba pojoi, piętro, liczba pięter w budynku). Za duplikaty
+uznane zostały te nieruchomości, które były tożsame pod względem powyższych
+wartości oraz posiadały "dostatecznie bliskie" wartości
+ceny i metrażu. Za "dostatecznie bliskie" przyjęto wysokość 1% średniej wartości danej cechy.
+Następnie spośród duplikatów został wybrany ten, który miał mniej braków danych.
+Gdy było to możliwe, brakujące dane wybranego egzemplarza grupy były uzupełniane
+na podstawie danych pochodzących od innych (odrzucanych) członków grupy.
+
+```python
+def check_similarity(group):
+    if len(group) > 1:
+        price_mean = group['price'].mean()
+        area_mean = group['area'].mean()
+        price_range = price_mean * 0.01
+        area_range = area_mean * 0.01
+        similar_price = group['price'].between(price_mean - price_range, price_mean + price_range)
+        similar_area = group['area'].between(area_mean - area_range, area_mean + area_range)
+        return (similar_price & similar_area).rename('is_duplicate')
+    else:
+        return pd.Series(False, index=group.index, name='is_duplicate')
+
+def fill_from_group(group):
+    group['non_null_count'] = group.notna().sum(axis=1)
+    sorted_group = group.sort_values('non_null_count', ascending=False)
+    sorted_group.drop('non_null_count', axis=1, inplace=True)
+    most_complete_row = sorted_group.iloc[0]
+    for _, row in sorted_group.iloc[1:].iterrows():
+        most_complete_row = most_complete_row.combine_first(row)
+    return most_complete_row
+
+def remove_duplicates(df, group_cols=None):
+    if group_cols is None:
+        group_cols = ['address', 'floor/store', 'no of floors/stores in the building', 'no of rooms']
+    most_complete_duplicates = duplicates.groupby(group_cols).apply(fill_from_group).reset_index(drop=True)
+    filtered_df = pd.concat([non_duplicates, most_complete_duplicates], ignore_index=True)
+    sorted_filtered_df = filtered_df.sort_values(by=['address', 'price', 'area'])
+    return sorted_filtered_df
+```
+
+#### Uzupełnianie danych adresowych i tworzenie danych geolokacyjnych
+Czasem w tytule ogłoszenia zawarta była bardziej szczegółowa informacja adresowa,
+niż w kolumnie (a pierwotnie w selektorze) z adresem.
+Takie przypadku były identyfikowane i uzupełniane za pomocą wzorca wyrażenia regularnego.
+W analogiczny sposób przeprowadzono czyszczenie kolumny zawierającej adres w celu ułatwienia geolokacji.
+
+```python
+pattern = r'(ul\.|Aleja|aleja|pl\.|al\.)\s*([^,\d]+[\d]*\b)'
+
+def update_address(row):
+    if pd.isna(row['name/title']):
+        return row['address']
+    match = re.search(pattern, row['name/title'])
+    if match:
+        street_name = match.group(2).strip()
+        if pd.isna(row['address']):
+            updated_address = street_name
+        else:
+            if street_name.lower() not in row['address'].lower():
+                updated_address = f"{street_name}, {row['address']}"
+            else:
+                updated_address = row['address']
+    else:
+        updated_address = row['address']
+    return updated_address
+```
+
+Następnie za pomocą zewnętrzengo API przekształcono adresy na dane geograficzne
+(szczegółowa lokacja oraz szerokość i długość geograficzna),
+co oworzyło możliwość analizy zależności cenowych oraz danych o nieruchomościach (oraz oraz modelowania)
+w komponencie przestrzennym.
+
+```python
+def geocode(address):
+  location = geolocator.geocode(address)
+  return pd.Series([location.address, location.latitude, location.longitude])
+```
+
+Z w ten sposób stworzonych danych obliczono za
+pomocą [wzoru _haversine_](https://en.wikipedia.org/wiki/Haversine_formula) odległość
+od centrum Krakowa.
+A także – znów przy pomocy regexa – wyciągnięto do nowej kolumny informację o dzielnicy.
+Usunięto wiersze z danymi pochodzącymi z ofert spoza Krakowa.
+
+### Weryfikacja jakości danych
+Zintegrowany zbiór danych oraz zbiór nieuchomości-online
+zawierły braki w kolumnach w rokiem budowy i formą własności.
+Zbiór otodom posiadał także braki w kolumnach z czynszem, ogrzewaniem oraz stanem mieszkania.
+
+W celu umożliwoenia modelowania i predykcji dane zostały uzupełnione.
+Przy uzupełnianiu danych przyjęto nastęujące strategie:
+- Dane numeryczne (rok budowy, czynsz) uzupełniono na podstawie danych statystycznych – średnią wartoscią po odrzuceniu
+outliersów.
+- Dane o formie własności uzupełniono kategorią "pełna własność z dwóch powodów: 1) była to
+najczęściej pojawiająca się własność kategorialna oraz 2) jest to zdroworozsądkowe założenie – domyślną
+formą własności przy sprzedaży mieszkania jest pełna własność. Każdy inny rodzaj własności (udział,
+udział ze wskazaniem, spółdzielcze własnościowe prawo do użytkowania itp.) powinno być podane pod zarzutem
+wprowadzania kupującego w błąd.
+- Brakujące dane kategorialne w zbiorze otodom (ogrzewanie oraz stan mieszkania) zstały uzupełnione
+kategorią "brak informacji", która i tak pojawiała się w tym zbiorze w innych miejscach. Zakładamy wstępnie,
+że nie będzie miało to wielkiego wpływu na predykcje modelów.
+
+
+### Wstępna eksploracja
+
+## Wizualizacja danych w komponencie przestrzennym
+
 
 
 ...
