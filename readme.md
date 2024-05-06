@@ -124,14 +124,17 @@ Pliki otrzymane ze źródła nieuchomości-online.pl zawierają 13 kolumn: `'url
 - Plik `2024-03-25-nieruchomosci-online-full_raw_dataset.csv` zawiera 3348 wierszy (bez nagłówka). 
 - Plik `2024-04-07-nieruchomosci-online_full_raw_dataset.csv` zawiera 4141 wierszy (bez nagłówka). 
 - Plik `2024-04-21-nieruchomosci-online_full_raw_dataset.csv` zawiera 6185 wierszy (bez nagłówka). 
-- Plik `2024-05-05-nieruchomosci-online_full_raw_dataset.csv` zawiera xxxx wierszy (bez nagłówka).
+- Plik `2024-05-05-nieruchomosci-online_full_raw_dataset.csv` zawiera 6182 wierszy (bez nagłówka).
+
+Dataframe, który został utworzony w wyniku scalenia powyższych plików
+(zaktualizowania zmienionych i dodania nowych ofert), zawiera 9 659 wierszy.
 
 ```python
 >>> 2024-03-08-nieruchomosci-online_dataset_raw.csv.size
 3949
 ```
 ```python
->>> nieruchomosci-online_dataset_raw.info
+>>> 2024-03-08-nieruchomosci-online_dataset_raw.csv.info
 RangeIndex: 3949 entries, 0 to 3948
 Data columns (total 13 columns):
  #   Column                               Non-Null Count  Dtype
@@ -154,7 +157,7 @@ memory usage: 401.2+ KB
 ```
 
 ```python
->>> nieruchomosci-online_dataset_raw.head(10)
+>>> 2024-03-08-nieruchomosci-online_dataset_raw.csv.head(10)
                                                  url                      name/title  ...                                             market           form of ownership
 0  https://krakow.nieruchomosci-online.pl/mieszka...  Mieszkanie, ul. Żelechowskiego  ...                                             wtórny                    własność
 1  https://krakow.nieruchomosci-online.pl/mieszka...         Mieszkanie, ul. Balicka  ...                                             wtórny  własność, księga wieczysta
@@ -180,15 +183,18 @@ Pliki otrzymane ze źródła otodom.pl zawierają 20 kolumn: `'url', 'name/title
 - Plik `2024-03-25-otodom-full_raw_dataset.csv` zawiera 7130 wierszy (bez nagłówka).
 - Plik `2024-04-07-otodom_full_raw_dataset.csv` zawiera 7148 wierszy (bez nagłówka).
 - Plik `2024-04-21-otodom_full_raw_dataset.csv` zawiera 7436 wierszy (bez nagłówka).
-- Plik `2024-05-05-otodom-full_raw_dataset.csv` zawiera xxx wierszy (bez nagłówka).
+- Plik `2024-05-05-otodom-full_raw_dataset.csv` zawiera 7465 wierszy (bez nagłówka).
+
+Dataframe, który został utworzony w wyniku scalenia powyższych plików
+(zaktualizowania zmienionych i dodania nowych ofert), zawiera 14 171 wierszy.
 
 ```python
->>> otodom_dataset_raw.size
+>>> 2024-03-08-otodom_dataset_raw.csv.size
 136400
 ```
 
 ```python
->>> otodom_dataset_raw.info
+>>> 2024-03-08-otodom_dataset_raw.csv.info
 RangeIndex: 6820 entries, 0 to 6819
 Data columns (total 20 columns):
  #   Column                Non-Null Count  Dtype
@@ -218,7 +224,7 @@ memory usage: 1.0+ MB
 ```
 
 ```python
->>> otodom_dataset_raw.head(10)
+>>> 2024-03-08-otodom_dataset_raw.csv.head(10)
                                                  url                                         name/title  ...    building type building material
 0  https://www.otodom.pl/pl/oferta/gotowe-2-pokoj...          Gotowe| 2 pokoje| blisko centrum| Bonarka  ...  apartamentowiec   brak informacji
 1  https://www.otodom.pl/pl/oferta/4-pok-mieszkan...  4-pok.mieszkanie z Sauną - Wysoki Standard ! 2...  ...  brak informacji             cegła
@@ -439,24 +445,29 @@ od centrum Krakowa.
 A także – znów przy pomocy regexa – wyciągnięto do nowej kolumny informację o dzielnicy.
 Usunięto wiersze z danymi pochodzącymi z ofert spoza Krakowa.
 
+
 ### Weryfikacja jakości danych
-Zintegrowany zbiór danych oraz zbiór nieuchomości-online
-zawierły braki w kolumnach w rokiem budowy i formą własności.
-Zbiór otodom posiadał także braki w kolumnach z czynszem, ogrzewaniem oraz stanem mieszkania.
+Zintegrowany zbiór danych oraz zbiór nieruchomości-online zawierały braki w kolumnach z rokiem budowy
+i formą własności. Zbiór Otodom posiadał także braki w kolumnach z czynszem, ogrzewaniem oraz stanem
+mieszkania.
 
-W celu umożliwoenia modelowania i predykcji dane zostały uzupełnione.
-Przy uzupełnianiu danych przyjęto nastęujące strategie:
-- Dane numeryczne (rok budowy, czynsz) uzupełniono na podstawie danych statystycznych – średnią wartoscią po odrzuceniu
-outliersów.
-- Dane o formie własności uzupełniono kategorią "pełna własność z dwóch powodów: 1) była to
-najczęściej pojawiająca się własność kategorialna oraz 2) jest to zdroworozsądkowe założenie – domyślną
-formą własności przy sprzedaży mieszkania jest pełna własność. Każdy inny rodzaj własności (udział,
-udział ze wskazaniem, spółdzielcze własnościowe prawo do użytkowania itp.) powinno być podane pod zarzutem
-wprowadzania kupującego w błąd.
-- Brakujące dane kategorialne w zbiorze otodom (ogrzewanie oraz stan mieszkania) zstały uzupełnione
-kategorią "brak informacji", która i tak pojawiała się w tym zbiorze w innych miejscach. Zakładamy wstępnie,
-że nie będzie miało to wielkiego wpływu na predykcje modelów.
+W celu umożliwienia modelowania i predykcji, dane zostały uzupełnione. Przyjęto następujące strategie
+uzupełniania danych:
+- **Dane numeryczne** (rok budowy, czynsz) uzupełniono na podstawie statystyk opisowych – średniej
+wartości, po uprzednim odrzuceniu wartości odstających za pomocą wariancji metody IQR (ćwiartkowego
+rozstępu).
+- **Dane o formie własności** uzupełniono kategorią "pełna własność", co jest uzasadnione dwoma
+faktami: była to najczęściej pojawiająca się kategoria oraz jest to logiczne założenie, że
+domyślną formą własności przy sprzedaży mieszkania jest pełna własność. Każdy inny rodzaj własności,
+taki jak udział czy spółdzielcze własnościowe prawo do użytkowania, powinien być (i zakładamy,
+że jest) wyraźnie zaznaczony,
+aby uniknąć wprowadzenia kupującego w błąd.
+- **Brakujące dane kategorialne** w zbiorze Otodom (ogrzewanie oraz stan mieszkania) zostały uzupełnione
+kategorią "brak informacji". Zakłada się, że taka klasyfikacja nie wpłynie znacząco na predykcje
+modeli, a wartość ta pojawiała się już w innych miejscach tego zbioru (ponieważ znajdowała się bezpośrednio
+w źródłach danych).
 
+  
 
 ### Wstępna eksploracja
 

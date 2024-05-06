@@ -21,7 +21,7 @@ def load_data():
 
     data = pd.read_csv(
         path,
-        usecols=["price", 'price-per-area', "no of floors/stores in the building", "year of construction",
+        usecols=["price", 'area', 'price-per-area', "no of floors/stores in the building", "year of construction",
                  "parking space", "distance", "location", "latitude", "longitude"]
     )
     data['parking space'] = data['parking space'].astype(int)*100
@@ -29,6 +29,7 @@ def load_data():
 
     aggregation_methods = {
         'price': 'mean',
+        'area': 'mean',
         'price-per-area': 'mean',
         "no of floors/stores in the building": 'mean',
         'year of construction': 'mean',
@@ -74,6 +75,8 @@ def get_elevation_scale(metric):
 def adjust_elevation(data, metric):
     if metric == 'distance':
         scale_factor = 200
+    elif metric == 'area':
+        scale_factor = 10
     elif metric == 'price':
         scale_factor = 1 / 1000
     elif metric == 'price-per-area':
@@ -144,8 +147,10 @@ st.subheader("Katarzyna Dębowska, Kacper Sobczyk, Piotr Urbańczyk")
 
 selected_metric = st.selectbox(
     "Select metric to display",
-    ["price", "price-per-area", "building age", "no of floors/stores in the building", "parking space",
-     "number of offers", "distance"],
+    ["price",
+     # "area",
+     "price-per-area", "building age", "no of floors/stores in the building",
+     "parking space", "number of offers", "distance"],
     index=0
 )
 
