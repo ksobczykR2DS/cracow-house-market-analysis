@@ -5,3 +5,8 @@ matplotlib
 seaborn
 streamlit
 yfinance
+scikit-learn
+scikit-optimize
+lightgbm
+xgboost
+click
