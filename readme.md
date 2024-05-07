@@ -273,7 +273,10 @@ podanej w złotówkach wartości `price-per-area` i `area`, a w przypadku zbioru
 korzystając z aktualnych kursów wymiany (aktualna średnia w 50-ciodniowym oknie ruchomym z bibiloteki `yfinance`).
 
 #### Powierzchnia, cena za metr
- Zamiana wartości z formatu tekstowego na numeryczny, usunięcie jednostek ("m²", "zł/m²").
+ Zamiana wartości z formatu tekstowego na numeryczny, usunięcie jednostek ("m²", "zł/m²"). Usunięto wiersze
+zawierające z ofertami nieruchomości o powierzchni powyżej 200 m²
+ oraz (jednoczeńnie) cenie poniżej 11 000 zł/m² elimunując w ten sposób oferty strychów,
+ lokali usługowych, całych pięter (i pomyłki).
 
 ####  Piętro, liczba pięter w budynku
 W przypadku zbioru otodom: rozdzielono informacje o piętrze i liczbie pięter w budynku w celu uspójnienia zbiorów.

@@ -147,10 +147,16 @@ st.subheader("Katarzyna Dębowska, Kacper Sobczyk, Piotr Urbańczyk")
 
 selected_metric = st.selectbox(
     "Select metric to display",
-    ["price",
-     # "area",
-     "price-per-area", "building age", "no of floors/stores in the building",
-     "parking space", "number of offers", "distance"],
+    [
+        "price",
+        "price-per-area",
+        "area",
+        "building age",
+        "no of floors/stores in the building",
+        "parking space",
+        "number of offers",
+        "distance"
+     ],
     index=0
 )
 
