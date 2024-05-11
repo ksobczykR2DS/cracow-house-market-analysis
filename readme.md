@@ -39,11 +39,13 @@ Projekt ma na celu zrozumienie zależności między cechami mieszkań a ich cena
 	2.4. [Inżynieria danych](#inżynieria-danych)
 
 	2.5. [Eksploracja danych](#inżynieria-danych)
-3. [Analiza danych](#czynności-wstępne)
+3. [Analiza danych](#analiza-danych)
 
-	3.1. [Analiza komponentów bazowych (PCA)](#gromadzenie-danych)
+	3.1. [Analiza komponentów bazowych (PCA)](#analiza-komponentów-bazowych-pca)
 
-	3.2. [Macierz korelacji (macierz Pearsona)](#opis-danych)
+	3.2. [Macierz korelacji (macierz Pearsona)](#macierz-korelacji-macierz-pearsona)
+
+    3.3 [Analiza cen mieszkań w różnych dzielnicach](#analiza-cen-mieszkań-w-różnych-dzielnicach)
 
 	3.3. [Wybór danych](#weryfikacja-jakości-danych)
 4. [Modelowanie](#czynności-wstępne)
@@ -470,7 +472,34 @@ kategorią "brak informacji". Zakłada się, że taka klasyfikacja nie wpłynie 
 modeli, a wartość ta pojawiała się już w innych miejscach tego zbioru (ponieważ znajdowała się bezpośrednio
 w źródłach danych).
 
-  
+
+## Analiza danych
+
+### Analiza komponentów bazowych (PCA)
+
+### Macierz korelacji (macierz Pearsona)
+Do analizy macierzy korelacji dla uwspólnionego zbioru danych wybrano następujące cechy:
+
+```python
+#   Column                               Non-Null Count  Dtype  
+---  ------                               --------------  -----  
+ 0   area                                 17932 non-null  float64
+ 1   price-per-area                       17932 non-null  float64
+ 2   floor/store                          17932 non-null  int64  
+ 3   no of floors/stores in the building  17932 non-null  int64  
+ 4   no of rooms                          17932 non-null  int64  
+ 5   year of construction                 17932 non-null  float64
+ 6   parking space                        17932 non-null  bool   
+ 7   market                               17932 non-null  int64  
+ 8   distance                             17932 non-null  float64
+```
+W kolumnie *market* wartości *pierwotny*, *wtórny* zostały zamienione odpowiednio na 0 i 1.
+
+#### Wnioski z analizy korelacji
+Poza oczywistymi zależnościami takimi jak liczba pokoi i wielkość mieszkania, roku budowy i rodzaj rynku czy liczba pięter w budynku i piętro, na którym znajduje się miszkanie widać wyraźnie negatywną korelację pomiędzy ceną za m^2 mieszkania a odległością od centrum, co potwierdza nasze przypuszczenia, że wraz ze wzrostem odległości od centrum spada cena mieszkania. Nieco słabsze, ale zasługujące na uwagę korelację występują również pomiędzy rokiem budowy, a dostępnością miejsca parkingowego, co wskazuje na to, że nowsze mieszkania częściej mają dostęp do miejsca parkingowego. Na wykresie da się również zauważyć pozytywną korelację pomiędzy rokiem budowy a odległością od centrum, co potwierdza fakt, że nowe mieszkania z reguły powstają z dala od centrum miasta. 
+
+### Analiza cen mieszkań w różnych dzielnicach
+Analiza cen mieszkań w różnych dzielnicach potwierdza wnioski płynące z macierzy korelacji. Najdroższe mieszkania znajdują się w centralnych dzielnicach - Stare Miasto i Wawel. Co ciekawe mieszkania na Starym Mieście charakteryzują się też największą rozpiętością cenową. Z kolei na Wawelu odchylenia od śreniej są niewielkie. Najtańśze mieszkania znajdują się w dzielnicach Swoszowice, Wzgórza Krzesławickie oraz Nowa Huta. 
 
 ### Wstępna eksploracja
 
