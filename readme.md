@@ -499,7 +499,7 @@ W kolumnie *market* wartości *pierwotny*, *wtórny* zostały zamienione odpowie
 Poza oczywistymi zależnościami takimi jak liczba pokoi i wielkość mieszkania, roku budowy i rodzaj rynku czy liczba pięter w budynku i piętro, na którym znajduje się miszkanie widać wyraźnie negatywną korelację pomiędzy ceną za m^2 mieszkania a odległością od centrum, co potwierdza nasze przypuszczenia, że wraz ze wzrostem odległości od centrum spada cena mieszkania. Nieco słabsze, ale zasługujące na uwagę korelację występują również pomiędzy rokiem budowy, a dostępnością miejsca parkingowego, co wskazuje na to, że nowsze mieszkania częściej mają dostęp do miejsca parkingowego. Na wykresie da się również zauważyć pozytywną korelację pomiędzy rokiem budowy a odległością od centrum, co potwierdza fakt, że nowe mieszkania z reguły powstają z dala od centrum miasta. 
 
 ### Analiza cen mieszkań w różnych dzielnicach
-Analiza cen mieszkań w różnych dzielnicach potwierdza wnioski płynące z macierzy korelacji. Najdroższe mieszkania znajdują się w centralnych dzielnicach - Stare Miasto i Wawel. Co ciekawe mieszkania na Starym Mieście charakteryzują się też największą rozpiętością cenową. Z kolei na Wawelu odchylenia od śreniej są niewielkie. Najtańśze mieszkania znajdują się w dzielnicach Swoszowice, Wzgórza Krzesławickie oraz Nowa Huta. 
+Analiza cen mieszkań w różnych dzielnicach potwierdza wnioski płynące z macierzy korelacji. Najdroższe mieszkania znajdują się w centrum - Stare Miasto. Mieszkania na Starym Mieście charakteryzują się też największą rozpiętością cenową. Najtańśze mieszkania znajdują się w dzielnicach Swoszowice, Wzgórza Krzesławickie oraz Nowa Huta. 
 
 ### Wstępna eksploracja
 
