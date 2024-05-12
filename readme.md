@@ -491,9 +491,7 @@ Do analizy macierzy korelacji dla uwspólnionego zbioru danych wybrano następuj
  5   year of construction                 17932 non-null  float64
  6   parking space                        17932 non-null  bool   
  7   market                               17932 non-null  int64  
- 8   latitude                             17932 non-null  float64
- 9   longitude                            17932 non-null  float64
- 10  distance                             17932 non-null  float64
+ 8   distance                             17932 non-null  float64
 ```
 W kolumnie *market* wartości *pierwotny*, *wtórny* zostały zamienione odpowiednio na 0 i 1.
 
