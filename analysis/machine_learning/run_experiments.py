@@ -1,10 +1,8 @@
 import click
 import pandas as pd
-import numpy as np
 from sklearn.linear_model import Lasso
 from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
 from lightgbm import LGBMRegressor
-from sklearn.svm import SVR
 from sklearn.tree import DecisionTreeRegressor
 from xgboost import XGBRegressor
 from sklearn.pipeline import Pipeline
@@ -18,7 +16,6 @@ MODELS_DICT = {
     'Lasso': Lasso(),
     'DT': DecisionTreeRegressor(),
     'RF': RandomForestRegressor(),
-    'SVR': SVR(),
     'LGB': LGBMRegressor(),
     'GBM': GradientBoostingRegressor(),
     'XGB': XGBRegressor()
@@ -47,15 +44,6 @@ MODELS_PARAMS = {
             'regressor_model__min_samples_leaf': Integer(10, 50),
             'regressor_model__min_samples_split': Integer(3, 20),
             'regressor_model__max_features': Categorical(['sqrt', 'log2', None])
-        }
-    ],
-    'SVR': [
-        {
-            'regressor_model__random_state': Categorical([0]),
-            'regressor_model__C': Real(10, 40, prior='log-uniform'),
-            'regressor_model__gamma': Real(1e-4, 1e-1, prior='log-uniform'),
-            'regressor_model__degree': Integer(1, 5),
-            'regressor_model__kernel': Categorical(['linear', 'poly', 'rbf', 'sigmoid']),
         }
     ],
     'GBM': [
@@ -118,8 +106,6 @@ def main(model_names_list, n_iter):
     print('Loading models...')
     model_dict = {}
 
-    # !!! Change path to your dataset with your dependent variable named as 'target' or 'price'
-    # CSV FILE
     dataset = 'model_data.csv'
 
     try:
