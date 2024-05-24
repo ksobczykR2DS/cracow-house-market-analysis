@@ -475,10 +475,10 @@ w źródłach danych).
 
 ## Analiza danych
 
-### Analiza komponentów bazowych (PCA)
-
 ### Macierz korelacji (macierz Pearsona)
 Do analizy macierzy korelacji dla uwspólnionego zbioru danych wybrano następujące cechy:
+
+![pearson.png](assets/pearson.png)
 
 ```python
 #   Column                               Non-Null Count  Dtype  
@@ -501,7 +501,19 @@ Poza oczywistymi zależnościami takimi jak liczba pokoi i wielkość mieszkania
 ### Analiza cen mieszkań w różnych dzielnicach
 Analiza cen mieszkań w różnych dzielnicach potwierdza wnioski płynące z macierzy korelacji. Najdroższe mieszkania znajdują się w centrum - Stare Miasto. Mieszkania na Starym Mieście charakteryzują się też największą rozpiętością cenową. Najtańśze mieszkania znajdują się w dzielnicach Swoszowice, Wzgórza Krzesławickie oraz Nowa Huta. 
 
+![districts.png](assets/districts.png)
+
+### Analiza komponentów bazowych (PCA)
+
+![first_component.png](assets/first_component.png)
+
+![second_component.png](assets/second_component.png)
+
+![biplot.png](assets/biplot.png)
+
 ### Wstępna eksploracja
+
+
 
 ## Wizualizacja danych w komponencie przestrzennym
 
