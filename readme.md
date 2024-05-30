@@ -41,13 +41,13 @@ Projekt ma na celu zrozumienie zależności między cechami mieszkań a ich cena
 	2.5. [Eksploracja danych](#inżynieria-danych)
 3. [Analiza danych](#analiza-danych)
 
-	3.1. [Analiza komponentów bazowych (PCA)](#analiza-komponentów-bazowych-pca)
+	3.1. [Macierz korelacji (macierz Pearsona)](#macierz-korelacji-macierz-pearsona)
 
-	3.2. [Macierz korelacji (macierz Pearsona)](#macierz-korelacji-macierz-pearsona)
+	3.2. [Analiza cen mieszkań w różnych dzielnicach](#analiza-cen-mieszkań-w-różnych-dzielnicach)
 
-    3.3 [Analiza cen mieszkań w różnych dzielnicach](#analiza-cen-mieszkań-w-różnych-dzielnicach)
-
-	3.3. [Wybór danych](#weryfikacja-jakości-danych)
+    3.3 [Analiza komponentów bazowych (PCA)](#analiza-komponentów-bazowych-pca)
+    
+	3.4. [Wybór cech](#wybór-cech)
 4. [Modelowanie](#czynności-wstępne)
 
 	4.1. [SearchGrid](#gromadzenie-danych)
@@ -509,7 +509,12 @@ Analiza cen mieszkań w różnych dzielnicach potwierdza wnioski płynące z mac
 
 ![second_component.png](assets/second_component.png)
 
+Analiza komponentów bazowych wykazała, że przy rzutowaniu na pierwszy komponent wiodący największe wartości wiążą się z cechami takimi jak liczba pokoi, miejsce parkingowe, rynek (wartość ujemna). Cechy te charakteryzują się największą zmiennością i mają największy wpływ na pierwszy komponent, jednak nie są to cechy kluczowe dla charakterystyki mieszkań. Dla drugiego komponentu bazowego największe wartości elementów odpowiadają cechom takim jak powierzchnia, liczba pokoi (wartości doddatnie) oraz rok budowy, ogległość od centrum (wartości ujemne). Cechy te w większym stopniu oddają chcarakterystykę mieszkań. 
+
 ![biplot.png](assets/biplot.png)
+
+
+Istotnych informacji na temat zależności pomiędzy różnymi cechami mieszkań dostarcza wizualizacja wektorów cech zrzutowanych na dwa pierwsze komponenty wiodące. Na wykresie znajdują odzwierciedlenie pewne oczywiste korelacje, takie jak zależność pomiędzy powierzchnią mieszkania i liczbą pokoi, piętrem, na którym znajduje się miszkanie i liczbą pięter w budynku. Pomiędzy tymi parami cech widoczna jest z kolei zależność odwrotna, co wskazuje na to, że większe mieszkania częściej znajdują się w niższych budynkach. Potwirdza się również widoczna w macierzy korelacji odwrotna zależność pomiędzy ceną za $m^2$ mieszkania a odległością od centrum. Ponadto można zauważyć, że mieszkania z rynku pierwotnego znajdują się dalej od centrum, co w naturnalny sposób implikuje zależność pomiędzy rokiem budowy a odległością od centrum - nowe miszkania powstają z dala od centrum. Na uwagę zasługuje również slina korelacja pomiędzy ceną a rynkiem, z której wynika, że droższe mieszkania (w znaczeniu ceny za $m^2$) pochodzą z rynku wtórnego, co może być tłumaczone poprzez fakt, że tego typu mieszkania z reguły są gotowe do zamieszkania w przeciwieństwie do mieszkań z rynku pierwotnego, które często wymagją wykończenia. Na wykresie widoczna jest również zależność pomiędzy rynkiem a parkingiem, z której można wyciągnąć wniosek, że mieszkania z rynku pierwotnego częściej są wyposażone w dedykowane miejsca postojowe. 
 
 ### Wstępna eksploracja
 
