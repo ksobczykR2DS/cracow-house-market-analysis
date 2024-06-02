@@ -1,0 +1,2 @@
+Model,Score,regressor_model__max_depth,regressor_model__max_features,regressor_model__min_samples_leaf,regressor_model__min_samples_split,regressor_model__random_state
+DT,0.6001996550317457,17,,10,2,0

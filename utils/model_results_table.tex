@@ -1,0 +1,16 @@
+\begin{tabular}{llllll}
+\toprule
+Model & MAE & RMSE & R2 & Measure_10% & Measure_20% \\
+\midrule
+Linear Regression (LR) & 2131.237 & 3164.8226 & 0.4361 & 0.533 & 0.8142 \\
+Decision Tree (DT) & 1497.0077 & 2532.1615 & 0.639 & 0.7098 & 0.8931 \\
+Random Forest (RF) & 1365.5709 & 2319.8185 & 0.697 & 0.7376 & 0.9197 \\
+CatBoost Regressor (CBR) & 1274.7712 & 2054.8926 & 0.7623 & 0.7519 & 0.9338 \\
+Gradient Boosting Machine (GBM) & 1026.9418 & 1889.7544 & 0.7989 & 0.8221 & 0.9453 \\
+LightGBM (LGB) & 1011.545 & 1829.4273 & 0.8116 & 0.8237 & 0.945 \\
+Super GB Model & 1011.7711 & 1802.7497 & 0.817 & 0.8282 & \textbf{0.9514} \\
+XGBoost (XGB) & \textbf{952.1033} & 1787.0105 & 0.8202 & \textbf{0.8392} & 0.9475 \\
+Weighted Super-GB & 953.7318 & \textbf{1767.5921} & \textbf{0.8241} & 0.8364 & 0.95 \\
+Mean (GB models) & 1066.340325 & 1890.271200 & 0.798250 & 0.809225 & 0.942900 \\
+\bottomrule
+\end{tabular}
