@@ -540,6 +540,10 @@ Na wykresie widoczna jest również zależność pomiędzy rynkiem a parkingiem,
 z której można wyciągnąć wniosek, że mieszkania z rynku pierwotnego częściej
 są wyposażone w dedykowane miejsca postojowe.
 
+### Wybór cech
+Na podstawie przeprowadzonych analiz, do budowy modeli wybrano następujące cechy: *area, price-per-area, floor/store, no of floors/stores in the building, no of rooms, year of construction, parking space, market, form of ownership, latitude, longitude distance* oraz *district*.
+
+
 ### Wstępna eksploracja
 
 
