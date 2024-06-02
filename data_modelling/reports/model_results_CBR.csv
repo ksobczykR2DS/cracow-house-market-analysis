@@ -1,0 +1,2 @@
+Model,Score,regressor_model__bagging_temperature,regressor_model__border_count,regressor_model__depth,regressor_model__iterations,regressor_model__l2_leaf_reg,regressor_model__learning_rate,regressor_model__random_strength,regressor_model__verbose
+CBR,0.7669425141241593,0.861146049577924,181,10,2000,8.48173900417312,0.26014881642562837,10.0,False

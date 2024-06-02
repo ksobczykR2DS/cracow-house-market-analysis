@@ -1,0 +1,2 @@
+Model,Score,regressor_model__learning_rate,regressor_model__loss,regressor_model__max_depth,regressor_model__max_features,regressor_model__min_samples_leaf,regressor_model__min_samples_split,regressor_model__n_estimators,regressor_model__random_state
+GBM,0.7987423877804535,0.05,huber,6,sqrt,10,20,6000,0
