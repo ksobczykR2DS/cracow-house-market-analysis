@@ -1,10 +1,10 @@
 import os
-
-import altair as alt
 import numpy as np
 import pandas as pd
 import pydeck as pdk
+import altair as alt
 from pydeck.types import String
+
 import streamlit as st
 
 st.set_page_config(layout="wide", page_title="Ceny mieszkań w Krakowie | ED 23/24", page_icon=":house:")
@@ -41,10 +41,6 @@ def load_data():
     aggregated_df = data.groupby(['latitude', 'longitude']).agg(aggregation_methods).reset_index()
     aggregated_df['building age'] = aggregated_df['year of construction'].max() - aggregated_df['year of construction']
     aggregated_df['distance_plot'] = aggregated_df['distance']
-
-    # aggregated_df["distance"] = aggregated_df["distance"] * 100
-    # aggregated_df['price-per-area'] = aggregated_df['price-per-area'] * 100
-    # aggregated_df["price"] = aggregated_df["price"] / 1000
 
     return aggregated_df
 
